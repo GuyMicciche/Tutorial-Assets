@@ -139,7 +139,7 @@ md.setData()
 
 ## Houdini Attribute Wrangle VEXpression:
 
-```javascript
+```C
 float frame = @Frame-1;  // Get current frame
 int i = @ptnum;  // Get current point index
 
