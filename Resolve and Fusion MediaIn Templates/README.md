@@ -12,7 +12,7 @@ The inspiration for this comes from the movie Mission To Mars and my love for ci
 [utf8.lua](https://github.com/GuyMicciche/Tutorial-Assets/blob/995b003556eeac8f382d767fa080fe87c81b7cc6/Resolve%20and%20Fusion%20MediaIn%20Templates/Assets/utf8.lua)
 
 ## TextWrapping_ver3.Fuse:
-[TextWrapping_ver3.Fuse]([https://github.com/yt-dlp/yt-dlp/wiki](https://github.com/GuyMicciche/Tutorial-Assets/blob/995b003556eeac8f382d767fa080fe87c81b7cc6/Resolve%20and%20Fusion%20MediaIn%20Templates/Assets/TextWrapping_ver3.Fuse))
+[TextWrapping_ver3.Fuse]([https://github.com/yt-dlp/yt-dlp/wiki](https://github.com/GuyMicciche/Tutorial-Assets/blob/995b003556eeac8f382d767fa080fe87c81b7cc6/Resolve%20and%20Fusion%20MediaIn%20Templates/Assets/TextWrapping_ver3.Fuse)
 
 ## TextWrappingPlusPlus.Fuse:
-[TextWrappingPlusPlus.Fuse]([https://github.com/yt-dlp/yt-dlp/wiki](https://github.com/GuyMicciche/Tutorial-Assets/blob/995b003556eeac8f382d767fa080fe87c81b7cc6/Resolve%20and%20Fusion%20MediaIn%20Templates/Assets/TextWrappingPlusPlus.Fuse))
+[TextWrappingPlusPlus.Fuse]([https://github.com/yt-dlp/yt-dlp/wiki](https://github.com/GuyMicciche/Tutorial-Assets/blob/995b003556eeac8f382d767fa080fe87c81b7cc6/Resolve%20and%20Fusion%20MediaIn%20Templates/Assets/TextWrappingPlusPlus.Fuse)
