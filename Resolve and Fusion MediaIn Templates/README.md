@@ -8,6 +8,20 @@ A presentation demonstrating in BMD Fusion/Resolve how to:
 * Setup custom template parameters
 * [Creating MediaIn drop zones in templates](https://www.steakunderwater.com/VFXPedia/__man/Resolve18-6/DaVinciResolve18_Manual_files/part1648.htm#:~:text=1%20Create%20a%20Macro%20of,your%20current%20Fusion%20template)
 
+## Windows Paths:
+* Fusion > Modules > Lua Folder
+```
+%APPDATA%\Blackmagic Design\DaVinci Resolve\Support\Fusion\Modules\Lua
+```
+* Fusion > Fuses Folder
+```
+%APPDATA%\Blackmagic Design\DaVinci Resolve\Support\Fusion\Fuses
+```
+* Fusion > Templates > Edit > Generators Folder
+```
+%APPDATA%\Blackmagic Design\DaVinci Resolve\Support\Fusion\Templates\Edit\Generators
+```
+
 ## All Assets:
 [Resolve and Fusion MediaIn Templates.zip](https://github.com/GuyMicciche/Tutorial-Assets/blob/7f486c2a111c92b0535afe4fee31734e10aa1fcf/Resolve%20and%20Fusion%20MediaIn%20Templates/Assets/Resolve%20and%20Fusion%20MediaIn%20Templates.zip)
 
