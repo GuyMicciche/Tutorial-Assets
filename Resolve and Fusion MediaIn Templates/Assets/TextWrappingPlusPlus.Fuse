@@ -1,0 +1,833 @@
+--[[
+
+A better text wrapping Fuse that lets you resize text. My first ever Lua script.
+
+***** 
+This needs the utf8 module found here to work (installation instructions on the page):
+https://github.com/starwing/luautf8
+*****
+
+Credits:
+Based on a script by Dunn Lewis <dunn[at]native-newmedia[dot]com>
+and @smirontsev and others at on https://www.steakunderwater.com/wesuckless/ 
+which was based on the script in the BM Fusion Fuse SDK manual
+(author unknown).
+-------------------------------------------------------------------------------
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>. 
+
+--]]
+--version = "TEXT WRAPPING plusplus 0.1"
+
+
+
+FuRegisterClass("TextWrappingPlusPlus", CT_Tool, {
+	REGS_Category = "Fuses",
+	REGS_OpIconString = "TwPP",
+	REGS_OpDescription = "Textwrapping++ fuse",
+})
+
+function Create()
+	InFont = self:AddInput("Font", "Font", {
+		LINKID_DataType = "Text",
+		INPID_InputControl = "FontFileControl",
+		IC_ControlGroup = 2,
+		IC_ControlID = 0,
+		INP_Level = 1,
+		INP_DoNotifyChanged = true,
+	})
+	
+	InFontStyle = self:AddInput("Style", "Style", {
+		LINKID_DataType = "Text",
+		INPID_InputControl = "FontFileControl",
+		IC_ControlGroup = 2,
+		IC_ControlID = 1,
+		INP_Level = 1,
+		INP_DoNotifyChanged = true,
+	})
+	
+	InText = self:AddInput("Text", "text", {
+		LINKID_DataType = "Text",
+		INPID_InputControl = "TextEditControl",
+		INPS_DefaultText = "TextWrapping++",
+		TEC_Lines = 10,
+		TEC_Wrap = true,
+	})
+	
+	InOffsetLo = self:AddInput("Start", "OffsetLow", {
+		LINKID_DataType    = "Number",
+		INPID_InputControl = "RangeControl",
+		RNGCS_MidName      = "Write On",
+		INP_MinScale       = 0.0,
+		INP_MaxScale       = 1.0,
+		INP_Default        = 0,
+		IC_ControlGroup    = 3,
+		IC_ControlID       = 0,
+		--INP_Integer    = true,
+	})
+	InOffsetHi = self:AddInput("End", "OffsetHigh", {
+		LINKID_DataType    = "Number",
+		INPID_InputControl = "RangeControl",
+		INP_MinScale       = 0.0,
+		INP_MaxScale       = 1.0,
+		INP_Default        = 1.0,
+		IC_ControlGroup    = 3,
+		IC_ControlID       = 1,
+		--INP_Integer    = true,
+	})
+	
+	InCase = self:AddInput("Letter Case", "Case", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "MultiButtonControl",
+		INP_Default = 0.0,
+		{ MBTNC_AddButton = "As-is", MBTNCD_ButtonWidth = 1/5, },
+		{ MBTNC_AddButton = "UPPER", MBTNCD_ButtonWidth = 1/5, },
+		{ MBTNC_AddButton = "lower", MBTNCD_ButtonWidth = 1/5, },
+		{ MBTNC_AddButton = "Title", MBTNCD_ButtonWidth = 1/5, },
+		{ MBTNC_AddButton = "WAke uP sHEepLe", MBTNCD_ButtonWidth = 1/5, },
+		INP_Integer = true,
+	})
+	
+	InPosition = self:AddInput("Position", "Position", {
+		LINKID_DataType = "Point",
+		INPID_InputControl = "OffsetControl",
+		INPID_PreviewControl = "CrosshairControl",
+		INP_DoNotifyChanged = true,
+	})
+	
+	InSize = self:AddInput("Size", "Size", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "SliderControl",
+		INP_MinScale =    0.0,
+		INP_MaxScale =    0.5,
+		INP_Default = 	  0.03,
+	})
+	
+	InCharacterSpacing = self:AddInput("Character Spacing", "Characterspacing", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "SliderControl",
+		INP_MinAllowed =    -10,
+		INP_MaxScale =   10.0,
+		INP_Default = 	  0.0,
+		--INP_DoNotifyChanged = true,
+	})
+	
+	InLineSpacing = self:AddInput("Line Spacing", "linespacing", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "SliderControl",
+		INP_MinScale =    -0.5,
+		INP_MaxScale =    0.5,
+		INP_Default = 	  0.0,
+		--INP_DoNotifyChanged = true,
+	})
+	
+	InWrap_Width = self:AddInput("Width", "wrap_Width", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "SliderControl",
+		INP_Default = 1.0,
+		INPID_PreviewControl = "RectangleControl",
+		PC_ControlGroup = 1,
+		PC_ControlID = 0,
+		INP_DoNotifyChanged = true,
+	})
+	
+	InWrap_Ragged_width = self:AddInput("Ragged Width", "ragged_width", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "SliderControl",
+		INP_Default = 0.25,
+		-- INPID_PreviewControl = "RectangleControl",
+		PC_ControlGroup = 2,
+		PC_ControlID = 0,
+		INP_DoNotifyChanged = true,
+	})
+	
+	InWrap_Height = self:AddInput("Height", "wrap_Height", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "SliderControl",
+		INP_Default = 1.0,
+		INPID_PreviewControl = "RectangleControl",
+		PC_ControlGroup = 1,
+		PC_ControlID = 1,
+		INP_DoNotifyChanged = true,
+	})
+	
+	InHyphen_Min = self:AddInput("hyphenate minimum", "hyphen_min", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "SliderControl",
+		INP_Default = 2.0,
+		PC_ControlGroup = 1,
+		INP_DoNotifyChanged = true,
+		INP_MinScale = 1,
+		INP_MaxScale = 6,
+		INP_MinAllowed = 1
+	})
+	
+	--------------------------------------------------------------
+	
+	InHorizontal_Alignment = self:AddInput("Horizontal Alignment", "horizontal_Alignment", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "MultiButtonControl",
+		INP_Default = 0.0,
+		{ MBTNC_AddButton = "LEFT", MBTNCD_ButtonWidth = 1/4, },
+		{ MBTNC_AddButton = "CENTER", MBTNCD_ButtonWidth = 1/4, },
+		{ MBTNC_AddButton = "RIGHT", MBTNCD_ButtonWidth = 1/4, },
+		{ MBTNC_AddButton = "JUSTIFIED", MBTNCD_ButtonWidth = 1/4, },
+		INP_Integer = true,
+		INP_DoNotifyChanged = true,
+	})
+	InHori_adjustment = self:AddInput("Horizontal Adjustment", "Hori_adjustment", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "SliderControl",
+		INP_MinScale =    -0.5,
+		INP_MaxScale =    0.5,
+		INP_Default = 	  0.0,
+		INPID_PreviewControl = "RectangleControl",
+		PC_ControlGroup = 1,
+		PC_ControlID = 3,
+		--	INP_DoNotifyChanged = true,
+	})
+
+	InVertical_Alignment = self:AddInput("Vertical Alignment", "vertical_alignment", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "MultiButtonControl",
+		INP_Default = 0.0,
+		{ MBTNC_AddButton = "TOP", MBTNCD_ButtonWidth = 1/3, },
+		{ MBTNC_AddButton = "CENTER", MBTNCD_ButtonWidth = 1/3, },
+		{ MBTNC_AddButton = "BOTTOM", MBTNCD_ButtonWidth = 1/3, },
+		INP_Integer = true,
+		INP_DoNotifyChanged = true,
+	})
+	InVer_adjustment = self:AddInput("Vertical Adjustment", "Ver_adjustment", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "SliderControl",
+		INP_MinScale =    -0.5,
+		INP_MaxScale =    0.5,
+		INP_Default = 	  0.0,
+		INPID_PreviewControl = "RectangleControl",
+		PC_ControlGroup = 1,
+		PC_ControlID = 4,
+		--	INP_DoNotifyChanged = true,
+	})
+	
+	InR = self:AddInput("Red", "Red", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "ColorControl",
+		INP_MinScale = 0.0,
+		INP_MaxScale = 1.0,
+		INP_Default  = 1.0,
+		ICS_Name = "Color",
+		IC_ControlGroup = 1,
+		IC_ControlID = 0,
+	})
+	
+	InG = self:AddInput("Green", "Green", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "ColorControl",
+		INP_MinScale = 0.0,
+		INP_MaxScale = 1.0,
+		INP_Default  = 1.0,
+		IC_ControlGroup = 1,
+		IC_ControlID = 1,
+	})
+	
+	InB = self:AddInput("Blue", "Blue", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "ColorControl",
+		INP_MinScale = 0.0,
+		INP_MaxScale = 1.0,
+		INP_Default  = 1.0,
+		IC_ControlGroup = 1,
+		IC_ControlID = 2,
+	})
+	
+	InA = self:AddInput("Alpha", "Alpha", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "ColorControl",
+		INP_MinScale = 0.0,
+		INP_MaxScale = 1.0,
+		INP_Default  = 1.0,
+		IC_ControlGroup = 1,
+		IC_ControlID = 3,
+	})
+	
+	-------------DRAW ON TRANSPARENT-------------
+	
+	InOnBlack = self:AddInput("Draw on Transparent Background", "OnBlack", {
+		LINKID_DataType     = "Number",
+		INPID_InputControl  = "CheckboxControl",
+		INP_Default         = 0,
+	})
+	---------------------------------------------
+	self:AddInput("Text Wrapping ++ ", "Ver_300", {
+		INPID_InputControl = "LabelControl",
+		INP_External = false,
+		INP_Passive  = true,
+	})
+	
+	InImage = self:AddInput("Input", "Input", {
+		LINKID_DataType = "Image",
+		LINK_Main = 1,
+	})
+	
+	OutImage = self:AddOutput("Output", "Output", {
+		LINKID_DataType = "Image",
+		LINK_Main = 1,
+	})
+end
+
+------------REMAPPER--------------------
+
+function map_range( a1, a2, b1, b2, s )
+	return b1 + (s-a1)*(b2-b1)/(a2-a1)
+end
+
+-- utf8 support ----------------------------------------------------------------
+local Utf8_char = {}
+
+function Utf8_char:new()
+	self.utf8 = require'utf8'
+	return self
+end
+function Utf8_char:substr (str, first, last)
+	last = last or #str
+	if first > #str or last > #str or first > last then
+		print("utf8_char error, invalid first or last index")
+		return ""
+	end
+	return self.utf8.sub(str, first, last)
+end
+
+function Utf8_char:get_char(str, i)
+	i = i or 1
+	if (#str == 0) then
+		print("empty input str for utf8_char.get_char")
+		return ""
+	end
+	if i > #str or i < 0 then
+		print("utf8_char error, invalid index")
+		return ""
+	end
+	return self.utf8.sub(str, i, i)
+end
+
+function Utf8_char:code (char)
+	if char == nil then
+		print("utf8_char error, char is nil")
+		return 0
+	end
+	return self.utf8.unicode(char)
+end
+local utf = Utf8_char:new()
+
+-- font_details --------------------------------------------------------------
+local Font_details = {
+	-- store info and measurement functions for the selected font
+}
+
+function Font_details:new(
+	font,
+	style,
+	size,
+	char_spacing,
+	line_spacing)
+	self.font = TextStyleFont(font, style)
+	self.tfm = TextStyleFontMetrics(self.font)
+	self.size = size
+	self.spacer = 10 + char_spacing
+	self.line_spacing = line_spacing
+	
+	self.line_height = (self.tfm.TextAscent + self.tfm.TextDescent  + self.tfm.TextExternalLeading) * 10 * self.size  + self.line_spacing
+	
+	if self.tfm.Scale > 0 then
+		self.scale = 1.0/self.tfm.Scale
+	else
+		self.scale = 1000000000000
+	end
+	self.TextAscent  = self.tfm.TextAscent
+	self.TextDescent  = self.tfm.TextDescent
+	self.TextExternalLeading = self.tfm.TextExternalLeading
+	return self
+end
+
+function Font_details:get_code(char)
+	if char == nil then
+		return 0
+	end
+	return utf:code(char)
+end
+
+function Font_details:measure(str)
+	local result = 0
+	for s=1, #str do
+		local current_char_code = self:get_code(utf:get_char(str, s))
+		result = result + self.tfm:CharacterWidth(current_char_code)
+	end
+	return result * self.size * self.spacer
+end
+
+function Font_details:measure_kerning(prevchar, char)
+	local current_char_code = self:get_code(char)
+	local prev_char_code = self:get_code(prevchar)
+	local result =  self.tfm:CharacterKerning(prev_char_code, current_char_code) * self.spacer * self.size
+	return result
+end
+
+function Font_details:get_character_shape(char)
+	local current_char_code = self:get_code(utf:get_char(char))
+	return self.tfm:GetCharacterShape(current_char_code, false)
+end
+
+local function get_word(line, start)
+	local fst, lst, word, space = string.find(line, "([%w%p]+)(%s*)", start)
+	return {
+		word = word,
+		space = space
+	}
+end
+
+
+-- super basic hyphenation algorithm. I want to implement the Knuth algorithm, but don't knwo enough Lua to do it yet
+-- see https://github.com/arcapos/luahyphen
+
+local function hyphenate_word(word, max_word_width, fnt, min_first_break, min_last_break)
+	local last_break
+	if min_first_break == nil then 
+		min_first_break = 2
+	end
+	local i = min_first_break
+	if min_last_break == nil then 
+		last_break = -2
+	end
+	last_break = #word - min_last_break
+	if last_break < i then
+		return {
+			first_part = word,
+			remainder = ""
+		}
+	end
+	local first_part = ""
+	local remainder = word
+	local first_width = 0
+	while ((first_width < max_word_width ) and i <= last_break) do
+		first_part =  utf:substr(word, 1, i)
+		remainder = utf:substr(word, i+1)
+		first_width = (fnt:measure(first_part.."-"))
+		i = i+1
+	end
+	return {
+		first_part = first_part,
+		remainder = remainder
+	}
+end
+
+
+-- wrap Lines ----------------------------------------------------------------
+
+local function wrap_lines(
+	-- wrap a string according to the given max_width, ragged_width and font details
+	-- returns {line: string, width: number}
+	line,
+	max_width,
+	hyphenate,
+	ragged_width,
+	hyphen_min,
+	fnt)
+	
+	local wrapped_lines = {
+		{
+			line= "",
+			width = 0
+		},
+	}
+	if #line ~= 0	and max_width > 0 then
+		local idx = 1
+		local last_space = ""
+		local ragged_margin = max_width * (1 - ragged_width)
+		local more_words = true
+		local emergency_brake = 0
+		while idx < #line and more_words and emergency_brake < #line*2 do
+			emergency_brake = emergency_brake + 1
+			local the_next = get_word(line, idx)
+			if #the_next.word then
+				local current_line = wrapped_lines[#wrapped_lines]
+				local updated_line = current_line.line..last_space..the_next.word
+				local new_line_width = fnt:measure(updated_line)
+				if new_line_width <= max_width then
+					-- the_next.word fits on current line
+					current_line.line =  updated_line
+					current_line.width = new_line_width
+					idx = idx + #the_next.word + #the_next.space
+					last_space = the_next.space
+				else
+					-- the_next.word doesn't fit
+					if current_line.width > ragged_margin then
+						-- we're past the ragged margin so we can just break
+						updated_line = current_line.line
+						-- discard the previous space
+						last_space = ""
+						-- don't need to update idx
+					else
+						-- current line is smaller than the ragged width,
+						-- but word extends past max_width so we need to hyphenate
+						if hyphenate then
+							local max_word_width = max_width - current_line.width - fnt:measure(last_space)
+							local hyphenated_word = hyphenate_word(the_next.word, max_word_width, fnt, hyphen_min, hyphen_min)
+							updated_line = current_line.line..last_space..hyphenated_word.first_part.."-"
+							-- wind forward just the first part of the hyphenated word
+							idx = idx + #hyphenated_word.first_part
+							last_space = ""
+						else
+							-- just have to force add the next word
+							updated_line = current_line.line..last_space..the_next.word
+							idx = idx + #(last_space..the_next.word)
+							last_space = ""
+						end
+					end
+					wrapped_lines[#wrapped_lines] = {
+						line = updated_line,
+						width = fnt:measure(updated_line)
+					}
+					-- create another wrapped line
+					wrapped_lines[#wrapped_lines+1] = {
+						line = "",
+						width = 0
+					}
+				end
+			else
+				more_words = false
+			end
+		end
+	end
+	return wrapped_lines
+end
+
+
+
+----------------CASE Transform----------------------------
+local function case_tranform(text, case)
+	if case == 1 then
+		return string.upper (text)		
+	elseif case == 2 then
+		return string.lower (text)
+	elseif case == 3 then
+		local function tchelper(first, rest)
+			return first:upper()..rest:lower()
+		end
+		return text:gsub("(%a)([%w_']*)", tchelper)
+	elseif case == 4 then
+		-- coOkEr CAsE i doNT kNow WHy
+		local kooky_text = ""
+		for i=1,#text do
+			if math.random() > 0.5 then
+				kooky_text = kooky_text..string.upper(utf:get_char(text, i))
+			else
+				kooky_text = kooky_text..string.lower(utf:get_char(text, i))
+			end
+		end
+		return kooky_text
+	end
+	return text
+end
+---------------- get all the spaces in a line—for justification------
+
+local function find_line_spaces(line) 
+	local spaces = {}  -- Table to store the spaces
+	-- Find the first match
+	local start, stop = string.find(line, "%s")
+	while start do
+		-- Extract the matched substring
+		local match = line:sub(start, stop)
+		-- Append the match to the spaces table
+		table.insert(spaces, match)
+		-- Find the next match, starting after the current match
+		start, stop = string.find(line, "%s+", stop + 1)
+	end
+	-- Concatenate the spaces into a single string
+	local result = table.concat(spaces)
+
+	print (result)
+	return result
+end
+
+------------------Draw the string---------------------------------
+local function drawstring(
+	img,
+	horizontal_alignment,
+	vertical_alignment,
+	quality,
+	x,
+	y,
+	colour,
+	text,
+	hori_adjust,
+	ver_adjust,
+	wordwrap_width,
+	wordwrap_height,
+	ragged_width,
+	fnt,
+	offset_min,
+	offset_max,
+	hyphen_min)
+	local ic = ImageChannel(img, quality)
+	local fs = FillStyle()
+	local cs = ChannelStyle()
+	
+	cs.Color = colour
+	ic:SetStyleFill(fs)
+	
+	local x_move = 0
+	local mat = Matrix4()
+	
+	mat:Scale(fnt.scale, fnt.scale, 1.0)
+	mat:Scale(fnt.size, fnt.size, 1)
+	
+	-- set the initial baseline position of the text cursor
+	local sh, ch, prev_char
+	local shape = Shape()
+	
+	mat:Move(x + hori_adjust , y + ver_adjust, 0)
+	local shape_Count=0
+	if horizontal_alignment == 2 then
+		mat:Move(wordwrap_width, 0, 0)
+	end
+	-- split the text into seperate lines
+	for line in string.gmatch(text, "%C+") do
+		shape_Count=shape_Count+1
+		local wrapped_lines = wrap_lines(line, wordwrap_width, true, ragged_width, hyphen_min, fnt)
+		local number_of_chars = 0
+		-- count the chars in the wrapped lines
+		for i=1,#wrapped_lines do
+			number_of_chars = number_of_chars + #wrapped_lines[i].line
+		end
+		local first_letter_to_show = math.floor(map_range( 0, 1, 0, number_of_chars, offset_min))
+		local last_letter_to_show = math.floor(map_range( 0, 1, 0, number_of_chars, offset_max))
+		local absolute_char_index = 1
+		local space_scale = 1
+		for i=1,#wrapped_lines do			
+			-- Now work out our initial cursor position, based on the horizontal_alignment
+			-- 0 = flush left,
+			-- 1 = centered
+			-- 2 = flush right
+			-- 3 = justified
+			
+			if horizontal_alignment == 1 then
+				mat:Move(-wrapped_lines[i].width/2, 0, 0)
+			elseif horizontal_alignment == 2 then
+				mat:Move(-wrapped_lines[i].width, 0, 0)
+			elseif horizontal_alignment == 3 then
+				-- mat:Move(-wordwrap_width, 0, 0)
+				local spaces_in_line = find_line_spaces(wrapped_lines[i].line)
+				local space_width = fnt:measure(spaces_in_line)
+				if space_width > 0 then
+					space_scale = (wordwrap_width - wrapped_lines[i].width + space_width) / space_width
+				end
+			end
+			-- now we assemble the actual shape
+			for c=1,#wrapped_lines[i].line do
+				ch = utf:get_char(wrapped_lines[i].line, c)
+				local cw = fnt:measure(ch)
+				-- if there is a previous character, we need to get the kerning
+				-- between the current character and the last one.
+				if prev_char then
+					local x_offset = fnt:measure_kerning(prev_char, ch)
+					x_move = x_move + x_offset
+					mat:Move(x_offset, 0, 0)
+				end
+				if horizontal_alignment== 3 and string.match(ch, "%s+")  then
+					local x_offset = cw * space_scale
+					mat:Move(x_offset, 0, 0)
+					x_move = x_move + x_offset
+				else
+					-- move the cursor to the center of the character
+					mat:Move(cw/2, 0, 0)
+					
+					-- I think this renders the shape we are interested in
+					if ch == " " then sh = Shape() else sh = fnt:get_character_shape(ch)  end  --  insert for space					    
+					sh = sh:TransformOfShape(mat)
+					-- move the text cursor to the end of the glyph.
+					mat:Move(cw/2, 0, 0)
+					x_move = x_move + cw
+					if (absolute_char_index > first_letter_to_show) and (absolute_char_index <= last_letter_to_show) then 
+						shape:AddShape(sh)
+					end
+				end
+				--if ch == 32 then ch = 95  end  --  insert space for "_"
+				prev_char = ch
+				absolute_char_index = absolute_char_index + 1
+			end
+			
+			-------------- TO FIX TEXT right horizontal_alignment  -----------------------------
+			-- line end, move the cursor back to the start
+			if horizontal_alignment == 0 then
+				mat:Move(-x_move, -fnt.line_height, 0)
+			elseif horizontal_alignment == 1 then
+				mat:Move(-x_move/2, -fnt.line_height, 0)
+			elseif horizontal_alignment == 2 then
+				mat:Move(0, -fnt.line_height, 0)
+			elseif horizontal_alignment == 3 then
+				mat:Move(-x_move, -fnt.line_height, 0)
+			end
+			x_move = 0
+		end
+	end
+	
+	--------------RE-POSITION TEXT-----------------------------
+	
+	local base_mat=Matrix4()
+	base_mat:Identity()
+	
+	if vertical_alignment == 0 then
+		
+	elseif vertical_alignment == 1 then
+		base_mat:Move(0, (fnt.line_height * (shape_Count-1))/2 , 0)
+	elseif vertical_alignment == 2 then
+		base_mat:Move(0,(-wordwrap_height/4) + (fnt.line_height * (shape_Count-1)), 0)
+	end
+	
+	shape = shape:TransformOfShape(base_mat)
+	
+	ic:ShapeFill(shape)
+	ic:PutToImage("CM_Merge", cs)
+end
+
+
+------------------------------------------------
+------------REMAPPER--------------------
+local function map_range( a1, a2, b1, b2, s )
+	return b1 + (s-a1)*(b2-b1)/(a2-a1)
+end
+--------------------------------------
+
+function Process(req)
+	local img = InImage:GetValue(req)
+	local font = InFont:GetValue(req).Value
+	local style = InFontStyle:GetValue(req).Value
+	local out = img:CopyOf()
+	
+	local case	= InCase:GetValue(req).Value
+	local text = case_tranform(InText:GetValue(req).Value, case)
+	
+	local size      = InSize:GetValue(req).Value
+	local center    = InPosition:GetValue(req)
+	local horizontal_alignment	= InHorizontal_Alignment:GetValue(req).Value
+	local vertical_alignment   = InVertical_Alignment:GetValue(req).Value
+	
+	local hori_adjust   = InHori_adjustment:GetValue(req).Value
+	local ver_adjust   = InVer_adjustment:GetValue(req).Value
+	
+	local char_spacing = InCharacterSpacing:GetValue(req).Value
+	local line_spacing = InLineSpacing:GetValue(req).Value
+	
+	local r         = InR:GetValue(req).Value
+	local g         = InG:GetValue(req).Value
+	local b         = InB:GetValue(req).Value
+	local a         = InA:GetValue(req).Value
+	
+	local offset_min  = InOffsetLo:GetValue(req).Value
+	local offset_max  = InOffsetHi:GetValue(req).Value
+	
+	local wordwrap_height = InWrap_Height:GetValue(req).Value
+	local wordwrap_width = InWrap_Width:GetValue(req).Value
+	local ragged_width = InWrap_Ragged_width:GetValue(req).Value
+	local hyphen_min = InHyphen_Min:GetValue(req).Value
+	
+	local cx = center.X
+	local cy = center.Y * (out.Height * out.YScale) / (out.Width * out.XScale)
+	------------Alignment--------------------------
+	if vertical_alignment == 0 then
+		cx=cx-wordwrap_width/2
+	elseif vertical_alignment == 2 then
+		cx=cx+wordwrap_width/2
+	end
+	if vertical_alignment == 0 then
+		cy=cy+(wordwrap_height/4)
+	end
+	
+	local onblack    	= (InOnBlack:GetValue(req).Value > 0.5)
+	-- if the FontManager list is empty, scan the font list
+	-- If the UI has never been shown, as would always be the case on a render slave,
+	-- nothing will scan the font list for available fonts. So we check for that here,
+	-- and force a scan if needed.
+	if not next( FontManager:GetFontList() ) then
+		FontManager:ScanDir()
+	end
+	
+	local quality = 32
+	if req:IsQuick() then
+		quality = 1
+	end
+	
+	----------------------------DRAW ON TRANSPARENT-------------------------------------
+	if onblack then
+		out:Fill(Pixel({R = 0, G = 0, B = 0, A = 0}))
+	end
+	
+	------------------------------------------------------------------------------------
+	local font_details = Font_details:new(
+	font,
+	style,
+	size,
+	char_spacing,
+	line_spacing)
+	
+	-- the drawstring function is doing all the heavy lifting
+	drawstring(
+	out,
+	horizontal_alignment,
+	vertical_alignment,
+	quality,
+	cx,
+	cy,
+	Pixel{R=r,G=g,B=b,A=a},
+	text,
+	hori_adjust,
+	ver_adjust,
+	wordwrap_width,
+	wordwrap_height,
+	ragged_width,
+	font_details,
+	offset_min,
+	offset_max,
+	hyphen_min)
+	
+	--------------------------------------------
+	
+	OutImage:Set(req, out)
+end
+
+function NotifyChanged(inp, param, time)
+	-- when the tools FontFileControl is first created, the FontManager has not yet
+	-- provided a FontList, so we can't set a default value. Instead we do it here.
+	
+	if inp == InFont then
+		local f = param.Value
+		
+		if f == nil or string.len(f) == 0 then
+			InFont:SetSource(Text("Arial"), time)
+		end
+	elseif inp == InFontStyle then
+		local f = param.Value
+		
+		if f == nil or string.len(f) == 0 then
+			InFontStyle:SetSource(Text("Regular"), time)
+		end
+	end
+	
+	-----------------------
+	
+	if inp == InPosition then   -- Center moved, update rectangle control position
+		InWrap_Height:SetAttrs({ RCD_SetX = param.X, RCD_SetY = param.Y })
+		
+	elseif inp == InOperation then
+		
+		InWrap_Height:SetAttrs({ PC_Visible = (param.Value < 1) })
+		InPosition:SetAttrs({ PC_Visible = (param.Value < 1) })
+	end
+	
+
+	
+end
+
