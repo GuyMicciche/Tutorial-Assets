@@ -5,7 +5,7 @@ A presentation showing how to make a binary counter without keyframes using Pyth
 
 The inspiration for this comes from the movie Mission To Mars and my love for cinematography and math! Please enjoy!
 
-## Resolve and Fusion MediaIn Templates.zip:
+## All Assets:
 [Resolve and Fusion MediaIn Templates.zip](https://github.com/GuyMicciche/Tutorial-Assets/blob/7f486c2a111c92b0535afe4fee31734e10aa1fcf/Resolve%20and%20Fusion%20MediaIn%20Templates/Assets/Resolve%20and%20Fusion%20MediaIn%20Templates.zip)
 
 ## utf8.lua:
