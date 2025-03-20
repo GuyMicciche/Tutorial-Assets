@@ -1,9 +1,12 @@
 
-# Mission To Mars Binary Counter
+# Resolve and Fusion MediaIn Templates
 
-A presentation showing how to make a binary counter without keyframes using Python in Cinema 4D and Maya, VEX in Houdini, and Expressions in After Effects. 
-
-The inspiration for this comes from the movie Mission To Mars and my love for cinematography and math! Please enjoy!
+A presentation demonstrating in BMD Fusion/Resolve how to:
+* [Create custom long shadows]
+* [Add & install a text wrapping node](https://www.steakunderwater.com/wesuckless/viewtopic.php?t=1098)
+* [Create a custom Fusion Macro / Resolve Template]
+* [Setup custom template parameters]
+* [Creating MediaIn drop zones in templates](https://www.steakunderwater.com/VFXPedia/__man/Resolve18-6/DaVinciResolve18_Manual_files/part1648.htm#:~:text=1%20Create%20a%20Macro%20of,your%20current%20Fusion%20template)
 
 ## All Assets:
 [Resolve and Fusion MediaIn Templates.zip](https://github.com/GuyMicciche/Tutorial-Assets/blob/7f486c2a111c92b0535afe4fee31734e10aa1fcf/Resolve%20and%20Fusion%20MediaIn%20Templates/Assets/Resolve%20and%20Fusion%20MediaIn%20Templates.zip)
