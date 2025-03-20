@@ -2,10 +2,10 @@
 # Resolve and Fusion MediaIn Templates
 
 A presentation demonstrating in BMD Fusion/Resolve how to:
-* [Create custom long shadows]
+* Create custom long shadows
 * [Add & install a text wrapping node](https://www.steakunderwater.com/wesuckless/viewtopic.php?t=1098)
-* [Create a custom Fusion Macro / Resolve Template]
-* [Setup custom template parameters]
+* Create a custom Fusion Macro / Resolve Template
+* Setup custom template parameters
 * [Creating MediaIn drop zones in templates](https://www.steakunderwater.com/VFXPedia/__man/Resolve18-6/DaVinciResolve18_Manual_files/part1648.htm#:~:text=1%20Create%20a%20Macro%20of,your%20current%20Fusion%20template)
 
 ## All Assets:
