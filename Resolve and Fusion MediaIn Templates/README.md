@@ -5,8 +5,20 @@ A presentation showing how to make a binary counter without keyframes using Pyth
 
 The inspiration for this comes from the movie Mission To Mars and my love for cinematography and math! Please enjoy!
 
-
-## Cinema 4D Python Effector Code:
+## utf8.lua:
 
 ```
+
+```
+
+## TextWrapping_ver3.Fuse:
+
+```
+
+```
+
+## TextWrappingPlusPlus.Fuse:
+
+```
+
 ```
