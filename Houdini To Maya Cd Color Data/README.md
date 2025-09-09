@@ -55,7 +55,7 @@ setattribtypeinfo(0, "point", "Cd4", "color");
 ~~~
 
 ## All Assets:
-[Houdini To Maya Cd Color Data.zip][(https://github.com/GuyMicciche/Tutorial-Assets/blob/main/Houdini%20To%20Maya%20Cd%20Color%20Data/Assets/Houdini%20To%20Maya%20Cd%20Color%20Data.zip)
+[Houdini To Maya Cd Color Data.zip](https://github.com/GuyMicciche/Tutorial-Assets/blob/main/Houdini%20To%20Maya%20Cd%20Color%20Data/Assets/Houdini%20To%20Maya%20Cd%20Color%20Data.zip)
 
 ### References:
 [Houdini to Maya part1: Multiple Vertex Color Data](https://ddankhazi.com/2020/12/16/houdini-to-maya-part1-multiple-vertex-color-data/)
