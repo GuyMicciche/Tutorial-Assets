@@ -1,4 +1,4 @@
-# Houdini To Maya Cd Color Data
+# Houdini to Maya Cd Color Data
 This tutorial explains how to transfer color data (Cd) from Houdini to Maya.
 
 We will export geometry out of Houdini into Alembic format and import the geometry into Maya.
