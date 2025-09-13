@@ -48,7 +48,7 @@ Here is a table summarizing common Houdini particle/point attributes and their t
 | `v` | `velocity` | Vector3 (float) | Particle velocity |
 | `force` | `acceleration` | Vector3 (float) | Particle acceleration/force |
 | `N` (normal) | `N` | Vector3 (float) | Rotation in Euler angles (degrees) |
-| `orient` | N/A | Vector4 (float) | Need to convert the quaternion rotation to Vector3 (float) |
+| `orient` | N/A | Vector4 (float) | Need to convert the quaternion rotation to Vector3 (float), name it `rotationPP` |
 | `Cd` (color) | `rgbPP` | Vector3 (float) | Per-particle color |
 | `pscale` | `radiusPP` | Float | Particle scale or radius |
 | `life` | `finalLifespanPP` | Float | Particle lifespan |
