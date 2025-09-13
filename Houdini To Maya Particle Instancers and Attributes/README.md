@@ -18,7 +18,7 @@ Here is a table summarizing common Houdini particle/point attributes and their t
 
 | Houdini Attribute | Maya Attribute | Data Type | Description |
 | :-- | :-- | :-- | :-- |
-| `P` | `position` | Vector3 (float) | Particle or point position |
+| `P` | `position` and `worldPosition` | Vector3 (float) | Particle or point position |
 | `v` | `velocity` | Vector3 (float) | Particle velocity |
 | `force` | `acceleration` | Vector3 (float) | Particle acceleration/force |
 | `N` (normal) | `N` | Vector3 (float) | Rotation in Euler angles (degrees) |
@@ -31,9 +31,10 @@ Here is a table summarizing common Houdini particle/point attributes and their t
 
 ### Notes:
 
-- Maya expects rotation as Euler angles in `rotationPP`, so if `orient` (quaternion) is used in Houdini, you may need to convert it to Euler before or after export.
+- Maya expects rotation as Euler angles in `rotationPP`, so if `orient` (quaternion) is used in Houdini, you will need to convert it to Euler before or after export.
 - Colors and scale transfer smoothly if attributes are named correctly and exported.
 - Some attributes may need manual promotion or conversion depending on export/import pipeline specifics.
+- Arnold render will glitch and not render the Maya Instancer if you export `id` or `particleId` out of Houdini, you will need a custom name (Arnold only).
 
 This table covers the main attributes commonly transferred from Houdini to Maya particles through Alembic export/import.[^1][^2][^3][^4]
 
