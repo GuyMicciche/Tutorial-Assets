@@ -40,7 +40,7 @@ We will show methods to render shaders using the (Cd) values in these render eng
 - In Houdini, do not export a `id` or `particleId` attribute, you must rename.
 
 ---
-Here is a table summarizing common Houdini particle/point attributes and their typical mapped equivalents in Maya particles when transferred via Alembic:
+Common Houdini particle/point attributes and their typical mapped equivalents in Maya particles when transferred:
 
 | Houdini Attribute | Maya Attribute | Data Type | Description |
 | :-- | :-- | :-- | :-- |
@@ -62,7 +62,7 @@ Here is a table summarizing common Houdini particle/point attributes and their t
 - Some attributes may need manual promotion or conversion depending on export/import pipeline specifics.
 - Arnold render will glitch and not render the Maya Instancer if you export `id` or `particleId` out of Houdini, you will need a custom name (Arnold only).
 
-This table covers the main attributes commonly transferred from Houdini to Maya particles through Alembic export/import.[^1][^2][^3][^4]
+This table covers the main attributes commonly transferred from Houdini to Maya particles via export/import.[^1][^2][^3][^4]
 
 [^1]: https://forums.odforce.net/topic/27646-solved-per-particle-attributes-maya-to-houdini-via-alembic/
 
