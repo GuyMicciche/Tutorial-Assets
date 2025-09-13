@@ -14,6 +14,7 @@ We will show methods to render shaders using the (Cd) values in these render eng
 * Renderman
 * Redshift
 
+---
 ## All Render Engines 
 - In Maya, in the Attribute Editor for the nParticle shape, go to `Add Dynamic Attributes`, click on `General`, then `Particle` tab, and manually add the `rotationPP` attribute.
 - Still in the nparticle shape, go to `Instancer (Geometry Replacement)` and check `Allow All Data Types`.
@@ -38,6 +39,7 @@ We will show methods to render shaders using the (Cd) values in these render eng
   -  Export Attributes, type in `rgbPP`
 - In Houdini, do not export a `id` or `particleId` attribute, you must rename.
 
+---
 Here is a table summarizing common Houdini particle/point attributes and their typical mapped equivalents in Maya particles when transferred via Alembic:
 
 | Houdini Attribute | Maya Attribute | Data Type | Description |
