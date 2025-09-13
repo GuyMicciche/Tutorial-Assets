@@ -74,13 +74,32 @@ This table covers the main attributes commonly transferred from Houdini to Maya 
 
 ---
 ## VEX:
-### attributewrangle1
+### pscale_and_instanceID_attribwrangle
 ~~~ C linenumbers
-// Maya import separate geometry
+float u = rand(@ptnum);
+@pscale = chramp("ramp_scale", u);
+
+int instances = chi("number_of_instances");
+int index  = int(chramp("ramp_ratio", u) * (instances-1));
+i@instanceId = index;
+
+// Dont create i@particleId because Arnold render gets confused
+~~~
+### path_attribwrangle
+~~~ C linenumbers
 string name = "instance_" + itoa(@class);
 s@path = 'obj/' + name + '/' + name + 'Shape';
 ~~~
-### attributewrangle2
+### orient_attribwrangle
+~~~ C linenumbers
+vector up = {0, 1, 0};
+@orient = quaternion(maketransform(@N, up));
+~~~
+### rotationPP_attribwrangle
+~~~ C linenumbers
+v@rotationPP = degrees(quaterniontoeuler(@orient, 0));
+~~~
+### cd_attribwrangle
 ~~~ C linenumbers
 // Use point number as seed for randomness
 float seed = @ptnum;
@@ -118,7 +137,8 @@ setattribtypeinfo(0, "point", "Cd4", "color");
 ~~~
 
 ## All Assets:
-[Houdini To Maya Cd Color Data.zip](https://github.com/GuyMicciche/Tutorial-Assets/blob/main/Houdini%20To%20Maya%20Cd%20Color%20Data/Assets/Houdini%20To%20Maya%20Cd%20Color%20Data.zip)
+[Houdini To Maya Particle Instancers and Attributes.zip](https://github.com/GuyMicciche/Tutorial-Assets/blob/main/Houdini%20To%20Maya%20Particle%20Instancers%20and%20Attributes/Assets/Houdini%20To%20Maya%20Particle%20Instancers%20and%20Attributes.zip)
 
 ### References:
-[Houdini to Maya part1: Multiple Vertex Color Data](https://ddankhazi.com/2020/12/16/houdini-to-maya-part1-multiple-vertex-color-data/)
+[Maya - Vray Particle Color](https://www.youtube.com/watch?v=ZbRNo6X5Grk)
+[Passing rgbPP to Instanced Objects](http://www.particle-effects.com/2014/06/passing-rgbpp-to-instanced-objects.html)
