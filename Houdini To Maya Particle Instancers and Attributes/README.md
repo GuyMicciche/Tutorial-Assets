@@ -3,13 +3,10 @@ This tutorial explains one way to export particles out of Houdini and import the
 
 ## Key Points:
 
-### 1. We will build a particle node tree with position (P), color (Cd), normal (N), scale/radius (pscale), and id (id) attributes. After which we will export the particles to Alembic format. 
-
-### 2. We will build a simple file importer subnet (HDA) in Houdini, and use Houdini Engine in Maya to import our particles as an nParticle object.
-
-### 3. We will use an Instancer in Maya to instance geometry onto our particles.
-
-### 4. We will learn about the nuances, setups, render engine quirks to shade and texture our particle system.
+1. We will build a particle node tree with position (P), color (Cd), normal (N), scale/radius (pscale), and id (id) attributes. After which we will export the particles to Alembic format. 
+2. We will build a simple file importer subnet (HDA) in Houdini, and use Houdini Engine in Maya to import our particles as an nParticle object.
+3. We will use an Instancer in Maya to instance geometry onto our particles.
+4. We will learn about the nuances, setups, render engine quirks to shade and texture our particle system.
 
 We will show methods to render shaders using the (Cd) values in these render engines:
 * Arnold
@@ -24,12 +21,12 @@ Here is a table summarizing common Houdini particle/point attributes and their t
 | `P` | `position` | Vector3 (float) | Particle or point position |
 | `v` | `velocity` | Vector3 (float) | Particle velocity |
 | `force` | `acceleration` | Vector3 (float) | Particle acceleration/force |
-| `N` (normal) | `rotationPP` | Vector3 (float) | Rotation in Euler angles (degrees) |
-| `orient` | `orient` | Vector4 (float) | Quaternion rotation (if exported directly) |
+| `N` (normal) | `N` | Vector3 (float) | Rotation in Euler angles (degrees) |
+| `orient` | N/A | Vector4 (float) | Need to convert the quaternion rotation to Vector3 (float) |
 | `Cd` (color) | `rgbPP` | Vector3 (float) | Per-particle color |
 | `pscale` | `radiusPP` | Float | Particle scale or radius |
 | `life` | `finalLifespanPP` | Float | Particle lifespan |
-| `id` | `particleId` | Float | Particle unique ID |
+| `id` | `particleId` | Float | Particle unique ID (If using Arnold, rename to something different, like `instanceId` |
 | `age` | `age` | Float | Particle age |
 
 ### Notes:
