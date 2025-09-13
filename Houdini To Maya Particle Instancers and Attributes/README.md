@@ -62,8 +62,6 @@ Here is a table summarizing common Houdini particle/point attributes and their t
 
 This table covers the main attributes commonly transferred from Houdini to Maya particles through Alembic export/import.[^1][^2][^3][^4]
 
-<div style="text-align: center">⁂</div>
-
 [^1]: https://forums.odforce.net/topic/27646-solved-per-particle-attributes-maya-to-houdini-via-alembic/
 
 [^2]: https://www.sidefx.com/docs/houdini/maya/particle.html
