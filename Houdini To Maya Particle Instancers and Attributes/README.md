@@ -18,11 +18,11 @@ We will show methods to render shaders using the (Cd) values in these render eng
 - In Maya, in the Attribute Editor for the nParticle shape, go to `Add Dynamic Attributes`, click on `General`, then `Particle` tab, and manually add the `rotationPP` attribute.
 - Still in the nparticle shape, go to `Instancer (Geometry Replacement)` and check `Allow All Data Types`.
 - Still in the nparticle shape, go to `General Options` and set the following options:
- - Set `Position` to `World Position`
- - Set `Scale` to `Radius PP`
- - Set `Object Index` to `Particle ID` (Except Arnold, set to another attribute you created in Houdini, for example `instanceId`)
+  - Set `Position` to `World Position`
+  - Set `Scale` to `Radius PP`
+  - Set `Object Index` to `Particle ID` (Except Arnold, set to another attribute you created in Houdini, for example `instanceId`)
 - Still in the nparticle shape, go to `General Options` and set the following options:
- - Set `Rotation` to `rotationPP`
+  - Set `Rotation` to `rotationPP`
 
 ## V-Ray Quirks:
 - In Maya, create `VRay Mtl` material and a `particleSamplerInfo` node. Connect the `Rgb PP` from the sampler node to the `Diffuse Color` of the shader.
