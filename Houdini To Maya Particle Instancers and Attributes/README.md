@@ -14,6 +14,30 @@ We will show methods to render shaders using the (Cd) values in these render eng
 * Renderman
 * Redshift
 
+## All Render Engines 
+- In Maya, in the Attribute Editor for the nParticle shape, go to `Add Dynamic Attributes`, click on `General`, then `Particle` tab, and manually add the `rotationPP` attribute.
+- Still in the nparticle shape, go to `Instancer (Geometry Replacement)` and check `Allow All Data Types`.
+- Still in the nparticle shape, go to `General Options` and set the following options:
+ - Set `Position` to `World Position`
+ - Set `Scale` to `Radius PP`
+ - Set `Object Index` to `Particle ID` (Except Arnold, set to another attribute you created in Houdini, for example `instanceId`)
+- Still in the nparticle shape, go to `General Options` and set the following options:
+ - Set `Rotation` to `rotationPP`
+
+## V-Ray Quirks:
+- In Maya, create `VRay Mtl` material and a `particleSamplerInfo` node. Connect the `Rgb PP` from the sampler node to the `Diffuse Color` of the shader.
+- In Maya, in the Attribute Editor for the nParticle shape, click on Attributes > VRay > and check `per-particle attribute export`, then scroll down to `Extra V-Ray Attribute` and check `RGB`.
+
+## Renderman Quirks:
+- In Maya, create `PxrSurface` material and a `PxrAttribute` or `PxrPrimvar` node. In either node, set the `Variable Name` to `rgbPP` and the `Variable Type` to `color`. Connect the `Result RGB` from the node to the `Diffuse Color` of the shader.
+
+## Arnold Quirks:
+- In Maya, create `aiStandardSurface` material and a `particleSamplerInfo` node. Connect the `Rgb PP` from the sampler node to the `Base Color` of the shader.
+- In Maya, in the Attribute Editor for the nParticle shape, click on `Arnold` rollout:
+  -  Uncheck `Primary Visibility`
+  -  Export Attributes, type in `rgbPP`
+- In Houdini, do not export a `id` or `particleId` attribute, you must rename.
+
 Here is a table summarizing common Houdini particle/point attributes and their typical mapped equivalents in Maya particles when transferred via Alembic:
 
 | Houdini Attribute | Maya Attribute | Data Type | Description |
