@@ -15,7 +15,7 @@ We will show methods to render shaders using the (Cd) values in these render eng
 * Redshift
 
 ### Important Note:
-- Houdini particles to Maya does not support Alembic animation as far as I know. The only way to do animation is to export a `bgeo.sc` sequence out of Houdini using the `ROP Geometry Output` node and import it using Houdini Engine in Maya. For single frame particle distributions, you can use the `ROP Alembic Output` node and export an Alembic (exporting a frame range will only result in a single frame in Maya)
+- Houdini particles to Maya does not support Alembic animation as far as I know. The only way to do an animation is to export a `bgeo.sc` sequence out of Houdini using the `ROP Geometry Output` node and import it using Houdini Engine in Maya. For single frame particle distributions, you can use the `ROP Alembic Output` node and export an Alembic (exporting a frame range will only result in a single frame in Maya)
 
 ---
 ## All Render Engines 
