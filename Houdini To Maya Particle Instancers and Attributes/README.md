@@ -2,7 +2,6 @@
 This tutorial explains one way to export particles out of Houdini and import them into Maya. 
 
 ## Key Points:
-
 1. We will build a particle node tree with position (P), color (Cd), normal (N), scale/radius (pscale), and id (id) attributes. After which we will export the particles to Alembic format. 
 2. We will build a simple file importer subnet (HDA) in Houdini, and use Houdini Engine in Maya to import our particles as an nParticle object.
 3. We will use an Instancer in Maya to instance geometry onto our particles.
@@ -18,7 +17,7 @@ We will show methods to render shaders using the (Cd) values in these render eng
 - Houdini particles to Maya does not support Alembic animation as far as I know. The only way to do an animation is to export a `bgeo.sc` sequence out of Houdini using the `ROP Geometry Output` node and import it using Houdini Engine in Maya. For single frame particle distributions, you can use the `ROP Alembic Output` node and export an Alembic (exporting a frame range will only result in a single frame in Maya)
 - Houdini's timeline starts at 1 and Maya's timeline starts at 0 by default. Make sure to set your timelines to match one another.
 
-### Chaching:
+## Chaching:
 If you want to submit your file to a renderfarm or send your file to another machine or artist who does not have Houdini Engine, you must follow these steps:
 1. Go to File > Project to create a new project. Click `New`, name your project, and click `Accept`.
 2. Save your file first! There is a high chance it might crash.
