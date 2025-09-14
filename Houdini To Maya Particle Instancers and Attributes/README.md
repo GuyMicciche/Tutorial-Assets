@@ -16,6 +16,20 @@ We will show methods to render shaders using the (Cd) values in these render eng
 
 ### Important Note:
 - Houdini particles to Maya does not support Alembic animation as far as I know. The only way to do an animation is to export a `bgeo.sc` sequence out of Houdini using the `ROP Geometry Output` node and import it using Houdini Engine in Maya. For single frame particle distributions, you can use the `ROP Alembic Output` node and export an Alembic (exporting a frame range will only result in a single frame in Maya)
+- Houdini's timeline starts at 1 and Maya's timeline starts at 0 by default. Make sure to set your timelines to match one another.
+
+### Chaching:
+If you want to submit your file to a renderfarm or send your file to another machine or artist who does not have Houdini Engine, you must follow these steps:
+1. Save your file first! There is a high chance it might crash.
+2. Select your `nParticle` object under the `Houdini Asset` node.
+3. Go to the FX menu set or hold Spacebar. Select nCache > Create New Cache (option box)
+4. Choose Edit > Reset Settings. Set the `Cache directory` (usually the cache > nCache) and create a folder, then set the `Cache name`. Click `Create`.
+5. Move your `nparticle` out of the Houdini Engine group and into the same place you have your `nucleus` node, and select it.
+6. Open the `Node Editor` and click the `Input and output connections` button.
+7. Connect the `Out Time` output plug from the `time` node to the `Current Time` input plug of the `nParticle` shape node.
+8. Delete the `houdiniAsset` node.
+9. Select the `nParticle` node and go to nCache > Attatch Cache. Select the `.xml` file that corresponds to your cache file.
+10. Your particles are animating without Houdini Engine! You will need to transfer your cache directory with your project. If you have a Maya project already set up with the standard directories, it will be easy to save caches, scenes and transfer everything.
 
 ---
 ## All Render Engines 
@@ -59,7 +73,6 @@ Common Houdini particle/point attributes and their typical mapped equivalents in
 | `age` | `age` | Float | Particle age |
 
 ### Notes:
-
 - Maya expects rotation as Euler angles in `rotationPP`, so if `orient` (quaternion) is used in Houdini, you will need to convert it to Euler before or after export.
 - Colors and scale transfer smoothly if attributes are named correctly and exported.
 - Some attributes may need manual promotion or conversion depending on export/import pipeline specifics.
