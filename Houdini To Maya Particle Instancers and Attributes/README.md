@@ -20,16 +20,17 @@ We will show methods to render shaders using the (Cd) values in these render eng
 
 ### Chaching:
 If you want to submit your file to a renderfarm or send your file to another machine or artist who does not have Houdini Engine, you must follow these steps:
-1. Save your file first! There is a high chance it might crash.
-2. Select your `nParticle` object under the `Houdini Asset` node.
-3. Go to the FX menu set or hold Spacebar. Select nCache > Create New Cache (option box)
-4. Choose Edit > Reset Settings. Set the `Cache directory` (usually the cache > nCache) and create a folder, then set the `Cache name`. Click `Create`.
-5. Move your `nparticle` out of the Houdini Engine group and into the same place you have your `nucleus` node, and select it.
-6. Open the `Node Editor` and click the `Input and output connections` button.
-7. Connect the `Out Time` output plug from the `time` node to the `Current Time` input plug of the `nParticle` shape node.
-8. Delete the `houdiniAsset` node.
-9. Select the `nParticle` node and go to nCache > Attatch Cache. Select the `.xml` file that corresponds to your cache file.
-10. Your particles are animating without Houdini Engine! You will need to transfer your cache directory with your project. If you have a Maya project already set up with the standard directories, it will be easy to save caches, scenes and transfer everything.
+1. Go to File > Project to create a new project. Click `New`, name your project, and click `Accept`.
+2. Save your file first! There is a high chance it might crash.
+3. Select your `nParticle` object under the `Houdini Asset` node.
+4. Go to the FX menu set or hold Spacebar. Select nCache > Create New Cache (option box)
+5. Choose Edit > Reset Settings. Set the `Cache directory` (usually the cache > nCache) and create a folder, then set the `Cache name`. Click `Create`.
+6. Move your `nparticle` out of the Houdini Engine group and into the same place you have your `nucleus` node, and select it.
+7. Open the `Node Editor` and click the `Input and output connections` button.
+8. Connect the `Out Time` output plug from the `time` node to the `Current Time` input plug of the `nParticle` shape node.
+9. Delete the `houdiniAsset` node.
+10. Select the `nParticle` node and go to nCache > Attatch Cache. Select the `.xml` file that corresponds to your cache file.
+11. Your particles are animating without Houdini Engine! You will need to transfer your cache directory with your project. If you have a Maya project already set up with the standard directories, it will be easy to save caches, scenes and transfer everything.
 
 ---
 ## All Render Engines 
