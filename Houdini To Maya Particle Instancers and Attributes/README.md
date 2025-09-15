@@ -158,3 +158,8 @@ setattribtypeinfo(0, "point", "Cd4", "color");
 ### References:
 - [Maya - Vray Particle Color](https://www.youtube.com/watch?v=ZbRNo6X5Grk)
 - [Passing rgbPP to Instanced Objects](http://www.particle-effects.com/2014/06/passing-rgbpp-to-instanced-objects.html)
+- [Maya crashes on nCache](https://forums.autodesk.com/t5/maya-dynamics-forum/maya-crashes-on-ncache/td-p/11939283)
+- [Maya : Renderman / RIS particle color](https://www.youtube.com/watch?v=qAOQLOcFLTw)
+- [RenderMan for Maya > About Primitive Variables](https://rmanwiki-26.pixar.com/space/RFM26/21037375/About+Primitive+Variables)
+- [RenderMan for Maya > Particles in Maya](https://rmanwiki-26.pixar.com/space/RFM26/21037853/Particles+in+Maya)
+- [V-Ray for Maya Help > Particle Attributes](https://docs.chaos.com/display/VMAYA/Particle+Attributes)
