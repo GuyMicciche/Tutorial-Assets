@@ -153,7 +153,7 @@ setattribtypeinfo(0, "point", "Cd4", "color");
 ~~~
 
 ## All Assets:
-[Houdini To Maya Particle Instancers and Attributes.zip](https://github.com/GuyMicciche/Tutorial-Assets/blob/main/Houdini%20To%20Maya%20Particle%20Instancers%20and%20Attributes/Assets/Houdini%20To%20Maya%20Particle%20Instancers%20and%20Attributes.zip)
+[Houdini To Maya Particle Instancers and Attributes.zip](https://github.com/GuyMicciche/Tutorial-Assets/blob/main/Houdini%20To%20Maya%20Particle%20Instancers%20and%20Attributes/Assets/Houdini%20to%20Maya%20Particle%20Instancers%20and%20Attributes.zip)
 
 ### References:
 - [Maya - Vray Particle Color](https://www.youtube.com/watch?v=ZbRNo6X5Grk)
