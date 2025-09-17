@@ -163,3 +163,5 @@ setattribtypeinfo(0, "point", "Cd4", "color");
 - [RenderMan for Maya > About Primitive Variables](https://rmanwiki-26.pixar.com/space/RFM26/21037375/About+Primitive+Variables)
 - [RenderMan for Maya > Particles in Maya](https://rmanwiki-26.pixar.com/space/RFM26/21037853/Particles+in+Maya)
 - [V-Ray for Maya Help > Particle Attributes](https://docs.chaos.com/display/VMAYA/Particle+Attributes)
+- [SideFX | Forums | particles rotation](https://www.sidefx.com/forum/topic/34396/#post-159718)
+- [SideFX | Forums | export particles to maya](https://www.sidefx.com/forum/topic/38829/#post-177873)
