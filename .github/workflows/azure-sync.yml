@@ -24,7 +24,7 @@ jobs:
         git config --global user.name "GitHub Actions"
         
         # Add Azure DevOps remote
-        git remote add azure https://$AZURE_DEVOPS_PAT@dev.azure.com/guymicciche/newrepository/_git/newrepository
+        git remote add azure https://$AZURE_DEVOPS_PAT@dev.azure.com/guymicciche/Tutorial-Assets/_git/Tutorial-Assets
         
         # Push to Azure DevOps
         git push azure --all --force
