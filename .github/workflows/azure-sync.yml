@@ -1,0 +1,31 @@
+name: Sync to Azure DevOps
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # Fetch all history
+    
+    - name: Sync to Azure DevOps
+      env:
+        AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
+      run: |
+        # Configure git
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+        
+        # Add Azure DevOps remote
+        git remote add azure https://$AZURE_DEVOPS_PAT@dev.azure.com/guymicciche/newrepository/_git/newrepository
+        
+        # Push to Azure DevOps
+        git push azure --all --force
+        git push azure --tags --force
