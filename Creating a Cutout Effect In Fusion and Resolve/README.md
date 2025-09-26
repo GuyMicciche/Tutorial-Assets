@@ -60,6 +60,40 @@ Once created, the macro can be installed by:
 
 Simply drag the macro onto your timeline clip and adjust the parameters in the inspector to customize the effect for your footage.
 
+---
+
+## 🎛️ AnimCurve Mapping Recipes
+
+### Formula:
+
+$$
+\text{Output} = \text{Offset} + (\text{Scale} \times \text{AnimCurveValue})
+$$
+
+where `AnimCurveValue` is from 0 to 1 (`Input` slider).
+
+### Calculation of Offset and Scale
+
+- When input = 0 (AnimCurveValue = 0): $\text{Output} = \text{Offset} = Start$
+- When input = 1 (AnimCurveValue = 1): $\text{Output} = \text{Offset} + \text{Scale} = End$
+
+### Thus,
+
+$$
+\text{Offset} = Start
+$$
+
+$$
+\text{Scale} = End - Start
+$$
+
+### From Custom Value `Start` to `End` (Input: 0 → 1)
+To animate from a custom start value `Start` to end value `End` using input from 0 to 1:
+- Offset = your custom start value $Start$
+- Scale = $End - Start$
+
+---
+
 ## All Assets:
 [Creating a Cutout Effect In Fusion and Resolve.zip](https://github.com/GuyMicciche/Tutorial-Assets/blob/7f486c2a111c92b0535afe4fee31734e10aa1fcf/Resolve%20and%20Fusion%20MediaIn%20Templates/Assets/Resolve%20and%20Fusion%20MediaIn%20Templates.zip)
 
