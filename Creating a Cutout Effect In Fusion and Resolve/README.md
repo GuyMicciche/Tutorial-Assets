@@ -49,12 +49,19 @@ In this tutorial, we'll build this effect step by step by creating:
 - **Flexible Timing**: Adjustable in/out durations and frame stretching
 - **Easy Controls**: All parameters accessible from Resolve's inspector
 
-## Installation
+## Installation for Fusion
 
-Once created, the macro can be installed by:
-1. Copying the `.setting` file to your Fusion macros folder (ex: `C:\Users\USER_NAME\AppData\Roaming\Blackmagic Design\DaVinci Resolve\Support\Fusion\Macros\`)
+The macro can be installed for Fusion by:
+1. Copying the `.setting` file to your **Fusion > Macros** folder (ex: `C:\Users\USER_NAME\AppData\Roaming\Blackmagic Design\DaVinci Resolve\Support\Fusion\Macros\`)
 2. Restarting DaVinci Resolve
-3. Finding the effect in the Effects Library under "User" category
+3. Finding the effect in the **Effects > Tools > Macros** on the Fusion page
+
+## Installation for DaVinci Resolve Edit Page
+
+Once created, the macro can be installed for Fusion by:
+1. Copying the `.setting` file to your **Fusion > Templates > Edit > Effects** folder (ex: `C:\Users\Guy\USER_NAME\Roaming\Blackmagic Design\DaVinci Resolve\Support\Fusion\Templates\Edit\Effects\`)
+2. Restarting DaVinci Resolve
+3. Finding the effect in the **Toolbox > Effects** category on the Edit page
 
 ## Usage
 
