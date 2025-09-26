@@ -91,7 +91,7 @@ To animate from a custom start value `Start` to end value `End` using input from
 - Scale = $End - Start$
 
 ## All Assets:
-[Creating a Cutout Effect In Fusion and Resolve.zip](https://github.com/GuyMicciche/Tutorial-Assets/blob/7f486c2a111c92b0535afe4fee31734e10aa1fcf/Resolve%20and%20Fusion%20MediaIn%20Templates/Assets/Resolve%20and%20Fusion%20MediaIn%20Templates.zip)
+[GEMDynamicCutout.zip](https://github.com/GuyMicciche/Tutorial-Assets/blob/main/Creating%20a%20Cutout%20Effect%20In%20Fusion%20and%20Resolve/Assets/GEMDynamicCutout.zip))
 
 ---
 
