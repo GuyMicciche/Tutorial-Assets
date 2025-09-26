@@ -77,7 +77,7 @@ $$
 
 where `AnimCurveValue` is from 0 to 1 (`Input` slider).
 
-### Calculation of Offset and Scale
+### Calculation of Scale and Offset
 
 - When input = 0 (AnimCurveValue = 0): $\text{Output} = \text{Offset} = Start$
 - When input = 1 (AnimCurveValue = 1): $\text{Output} = \text{Offset} + \text{Scale} = End$
