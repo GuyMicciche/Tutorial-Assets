@@ -85,17 +85,17 @@ where `AnimCurveValue` is from 0 to 1 (`Input` slider).
 ### Thus,
 
 $$
-\text{Offset} = Start
+\text{Scale} = End - Start
 $$
 
 $$
-\text{Scale} = End - Start
+\text{Offset} = Start
 $$
 
 ### From Custom Value `Start` to `End` (Input: 0 → 1)
 To animate from a custom start value `Start` to end value `End` using input from 0 to 1:
-- Offset = your custom start value $Start$
 - Scale = $End - Start$
+- Offset = your custom start value $Start$
 
 ## All Assets:
 [GEMDynamicCutout.zip](https://github.com/GuyMicciche/Tutorial-Assets/blob/main/Creating%20a%20Cutout%20Effect%20In%20Fusion%20and%20Resolve/Assets/GEMDynamicCutout.zip)
